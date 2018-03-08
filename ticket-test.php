@@ -16,9 +16,9 @@ if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
 	$response="200";
 } else if ($ticketid == "042776d2024680" && $eventid == "testevent2") {
 	$ticketType="NO SUCH TICKET";
-	$ticketID="N/A";
+	$ticketID="NA";
 	$ticketState="Unavailable";
-	$ticketEvent="N/A";
+	$ticketEvent="NA";
 	$ticketAddinfo = "Can not find any available ticket for this tag.";
 	$response="301";
 } else if ($ticketid == "04f76e824e4d80" && $eventid == "testevent2") {
@@ -30,9 +30,9 @@ if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
 	$response="200";
 } else if ($ticketid == "04f76e824e4d80" && $eventid == "testevent1") {
 	$ticketType="NO SUCH TICKET";
-	$ticketID="N/A";
+	$ticketID="NA";
 	$ticketState="Unavailable";
-	$ticketEvent="N/A";
+	$ticketEvent="NA";
 	$ticketAddinfo = "Can not find any available ticket for this tag.";
 	$response="301";
 } else if ($ticketid == "04fba7eaa82b80" && $eventid == "testevent1") {
@@ -44,9 +44,9 @@ if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
 	$response="302";
 } else if ($ticketid == "04fba7eaa82b80" && $eventid == "testevent2") {
 	$ticketType="NO SUCH TICKET";
-	$ticketID="N/A";
+	$ticketID="NA";
 	$ticketState="Unavailable";
-	$ticketEvent="N/A";
+	$ticketEvent="NA";
 	$ticketAddinfo = "Can not find any available ticket for this tag.";
 	$response="301";
 } else if ($ticketid == "04a37da2c94c80" && $eventid == "testevent2") {
@@ -64,10 +64,10 @@ if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
 	$ticketAddinfo = "Super ticket for multiple uses.";
 	$response="201";
 } else {
-	$ticketType="N/A";
-	$ticketID="N/A";
-	$ticketState="N/A";
-	$ticketEvent="N/A";
+	$ticketType="NA";
+	$ticketID="NA";
+	$ticketState="NA";
+	$ticketEvent="NA";
 	$ticketAddinfo = "What on earth do you want?";
 	$response="404";
 }
