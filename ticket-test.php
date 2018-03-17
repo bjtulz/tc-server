@@ -6,6 +6,7 @@ $ticketID="";
 $ticketState="";
 $ticketEvent="";
 $ticketAddinfo="";
+$type="ticketInfo";
 $response="";
 if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
 	$ticketType="SINGLE ENTRY TICKET";
@@ -76,7 +77,8 @@ $output = array ('ticketType' => $ticketType,
 				 'ticketState' => $ticketState,
 				 'ticketEvent' => $ticketEvent,
 				 'ticketAddinfo' => $ticketAddinfo,
-				 'response' => $response);
+				 'response' => $response,
+				 'type' => $type);
 echo json_encode($output);
 	
 ?>

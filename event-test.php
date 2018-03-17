@@ -2,6 +2,7 @@
 $eventid=$_POST['eventid'];
 $eventname="";
 $response="";
+$type="eventInfo";
 if ($eventid == "testevent1") {
 	$eventname = "TEST EVENT 1";
 	$response="200";
@@ -11,7 +12,9 @@ if ($eventid == "testevent1") {
 } else {
 	$response="404";
 }
-$output = array ('event' => $eventname, 'state' => $response);
+$output = array ('event' => $eventname, 
+                 'state' => $response,
+				 'type' => $type);
 echo json_encode($output);
 	
 ?>
