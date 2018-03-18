@@ -1,5 +1,5 @@
 <?php
-$ticketid=$_POST['ticketid'];
+$ticketid=strtolower($_POST['ticketid']);
 $eventid=$_POST['eventid'];
 $ticketType="";
 $ticketID="";
