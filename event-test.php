@@ -13,7 +13,7 @@ if ($eventid == "testevent1") {
 } else {
 	$state="301";
 }
-$output = $type."|".$state."|".$eventName;
+$output = $type.",".$state.",".$eventName;
 echo $output;
 	
 ?>
