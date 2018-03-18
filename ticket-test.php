@@ -72,13 +72,7 @@ if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
 	$ticketAddinfo = "What on earth do you want?";
 	$response="404";
 }
-$output = array ('ticketType' => $ticketType,
-                 'ticketID' => $ticketID,
-				 'ticketState' => $ticketState,
-				 'ticketEvent' => $ticketEvent,
-				 'ticketAddinfo' => $ticketAddinfo,
-				 'response' => $response,
-				 'type' => $type);
-echo json_encode($output);
+$output = $type.",".$response.",".$ticketType.",".$ticketID.",".$ticketState.",".$ticketEvent.",".$ticketAddinfo;
+echo $output;
 	
 ?>
