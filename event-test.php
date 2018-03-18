@@ -1,20 +1,19 @@
 <?php
 $eventid=$_POST['eventid'];
-$eventname="";
-$response="";
 $type="eventInfo";
+$state="";
+$eventName="";
+
 if ($eventid == "testevent1") {
 	$eventname = "TEST EVENT 1";
-	$response="200";
+	$state="200";
 } else if ($eventid == "testevent2") {
 	$eventname = "TEST EVENT 2";
-	$response="200";
+	$state="200";
 } else {
-	$response="404";
+	$state="301";
 }
-$output = array ('event' => $eventname, 
-                 'state' => $response,
-				 'type' => $type);
-echo json_encode($output);
+$output = $type."|".$state."|".$eventName;
+echo $output;
 	
 ?>
