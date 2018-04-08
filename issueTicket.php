@@ -15,7 +15,7 @@ if ($_POST['devicetoken'] == "" ||
 	$_POST['tagID'] == "") {
 		$state = 301; //Parameters not enough
 	} else {
-		$deviceToken = $_POST['userToken'];
+		$deviceToken = $_POST['devicetoken'];
 		$eventID = $_POST['eventID'];
 		$tagID = $_POST['tagID'];
 		$deviceID = "";
