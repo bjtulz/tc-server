@@ -16,9 +16,7 @@ $eventName = "";
 
 $userStatus = "";
 
-if ($_POST['devicetoken'] == "" ||
-	$_POST['eventID'] == ""
-	) {
+if ($_POST['devicetoken'] == "" || $_POST['eventID'] == "") {
 		$state = 401; //Parameters not enough
 	} else {
 		$deviceToken = $_POST['devicetoken'];
@@ -66,7 +64,7 @@ if ($_POST['devicetoken'] == "" ||
 			
 		}
 		
-	}
+	
 	$output = $state."|".$deviceName."|".$eventName;
     echo $output;
 ?>
