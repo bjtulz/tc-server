@@ -38,7 +38,7 @@ if ($_POST['devicetoken'] == "" ||
 		if (count($tokenData) == 0 ) {
 			$userStatus = 301; //token does not exist
 			$state = 301;
-		} else if ($tokenData[0]["tc_usertoken_timelimit"] <= $current ){
+		} else if ($tokenData[0]["tc_device_tokenexpire"] <= $current ){
 			$userStatus = 302; //token expired; 
 			$state = 302;
 		} else {
