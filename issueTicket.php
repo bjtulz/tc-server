@@ -12,7 +12,7 @@ $ticketType = "";
 
 if ($_POST['devicetoken'] == "" ||
 	$_POST['eventID'] == "" ||
-	$_POST['tagID'] == "" ||) {
+	$_POST['tagID'] == "") {
 		$state = 301; //Parameters not enough
 	} else {
 		$deviceToken = $_POST['userToken'];
