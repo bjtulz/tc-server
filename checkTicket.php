@@ -1,78 +1,81 @@
 <?php
-$ticketid=strtolower($_POST['ticketid']);
-$eventid=$_POST['eventid'];
-$ticketType="";
-$ticketID="";
-$ticketState="";
-$ticketEvent="";
-$ticketAddinfo="";
-$type="ticketInfo";
-$response="";
-if ($ticketid == "042776d2024680" && $eventid == "testevent1") {
-	$ticketType="SINGLE ENTRY TICKET";
-	$ticketID="10000001";
-	$ticketState="Available";
-	$ticketEvent="TEST EVENT 1";
-	$ticketAddinfo = "Standard ticket, succeed to use.";
-	$response="200";
-} else if ($ticketid == "042776d2024680" && $eventid == "testevent2") {
-	$ticketType="NO SUCH TICKET";
-	$ticketID="NA";
-	$ticketState="Unavailable";
-	$ticketEvent="NA";
-	$ticketAddinfo = "Can not find any available ticket for this tag.";
-	$response="301";
-} else if ($ticketid == "04f76e824e4d80" && $eventid == "testevent2") {
-	$ticketType="SINGLE ENTRY TICKET";
-	$ticketID="20000001";
-	$ticketState="Available";
-	$ticketEvent="TEST EVENT 2";
-	$ticketAddinfo = "Standard ticket, succeed to use.";
-	$response="200";
-} else if ($ticketid == "04f76e824e4d80" && $eventid == "testevent1") {
-	$ticketType="NO SUCH TICKET";
-	$ticketID="NA";
-	$ticketState="Unavailable";
-	$ticketEvent="NA";
-	$ticketAddinfo = "Can not find any available ticket for this tag.";
-	$response="301";
-} else if ($ticketid == "04fba7eaa82b80" && $eventid == "testevent1") {
-	$ticketType="SINGLE ENTRY TICKET";
-	$ticketID="10000002";
-	$ticketState="Used";
-	$ticketEvent="TEST EVENT 1";
-	$ticketAddinfo = "This ticket is used on 2018.03.07 22:29, can not be used this time.";
-	$response="302";
-} else if ($ticketid == "04fba7eaa82b80" && $eventid == "testevent2") {
-	$ticketType="NO SUCH TICKET";
-	$ticketID="NA";
-	$ticketState="Unavailable";
-	$ticketEvent="NA";
-	$ticketAddinfo = "Can not find any available ticket for this tag.";
-	$response="301";
-} else if ($ticketid == "04a37da2c94c80" && $eventid == "testevent2") {
-	$ticketType="SUPER TICKET";
-	$ticketID="2S000001";
-	$ticketState="Available";
-	$ticketEvent="TEST EVENT 2";
-	$ticketAddinfo = "Super ticket for multiple uses.";
-	$response="201";
-} else if ($ticketid == "04a37da2c94c80" && $eventid == "testevent1") {
-	$ticketType="SUPER TICKET";
-	$ticketID="1S000001";
-	$ticketState="Available";
-	$ticketEvent="TEST EVENT 1";
-	$ticketAddinfo = "Super ticket for multiple uses.";
-	$response="201";
-} else {
-	$ticketType="NA";
-	$ticketID="NA";
-	$ticketState="NA";
-	$ticketEvent="NA";
-	$ticketAddinfo = "What on earth do you want?";
-	$response="404";
-}
-$output = $type.",".$response.",".$ticketType.",".$ticketID.",".$ticketState.",".$ticketEvent.",".$ticketAddinfo;
-echo $output;
-	
+require "Medoo.php";
+
+use Medoo\Medoo;
+
+$type = "checkTicketResult";
+$state = "";
+$ticketRef = "";
+$ticketTag = "";
+$ticketEvent = "";
+$ticketType = "";
+
+if ($_POST['devicetoken'] == "" ||
+	$_POST['eventID'] == "" ||
+	$_POST['tagID'] == "") {
+		$state = 301; //Parameters not enough
+	} else {
+		$deviceToken = $_POST['devicetoken'];
+		$eventID = $_POST['eventID'];
+		$tagID = $_POST['tagID'];
+						
+		//Connect DB
+		$database = new Medoo([
+	    'database_type' => 'mysql',
+	    'database_name' => 'tc',
+	    'server' => 'localhost',
+	    'username' => 'tc',
+	    'password' => 'lizhe20080722'
+	    ]);
+		
+		//Check token
+		$tokenData = $database->select("tc_device",
+	                               "*",
+								   ["tc_device_token" => $deviceToken]);
+		if (count($tokenData) == 0 ) {
+			$userStatus = 301; //token does not exist
+			$state = 301;
+		} else if ($tokenData[0]["tc_device_tokenexpire"] <= $current ){
+			$userStatus = 302; //token expired; 
+			$state = 302;
+		} else {
+			$userStatus = 200; //token active
+			$deviceID = $tokenData[0]["tc_device_id"];
+		}
+		if ( $userStatus == 200){
+			
+			$check1result = $database->update("tc_ticket", 
+								["tc_ticket_state" => 0],
+								[
+								"AND" => 
+								[
+								"tc_ticket_tagid" => $tagID,
+								"tc_ticket_eventid" => $eventID
+							    ]]);
+			
+			if ( $check1result->rowCount() == 1 ) {
+				$state = 200;
+				$current = time();
+				$database->update("tc_ticket", [
+							  "tc_ticket_checktime" => $current,
+	                          "tc_ticket_checker" => $deviceToken,
+	                          ],
+							  [
+							   "AND" =>[
+								"tc_ticket_tagid" => $tagID,
+								"tc_ticket_eventid" => $eventID
+							    ]]);
+			} else {
+				$state = 400;
+			}
+	}
+		
+	}
+	$output = array(
+	             'type' => $type,
+	             'state' => $state,
+                 'ticketRef' => $ticketRef,
+				 'ticketTag' => $ticketTag,
+				 'ticketEvent' => $ticketEvent);
+    echo json_encode($output);
 ?>
