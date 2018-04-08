@@ -9,6 +9,7 @@ $ticketRef = "";
 $ticketTag = "";
 $ticketEvent = "";
 $ticketType = "";
+$current = time();
 
 if ($_POST['devicetoken'] == "" ||
 	$_POST['eventID'] == "" ||
@@ -55,7 +56,6 @@ if ($_POST['devicetoken'] == "" ||
 			
 			if ( $check1result->rowCount() == 1 ) {
 				$state = 200;
-				$current = time();
 				$database->update("tc_ticket", [
 							  "tc_ticket_checktime" => $current,
 	                          "tc_ticket_checker" => $deviceToken,

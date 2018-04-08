@@ -9,6 +9,7 @@ $ticketRef = "";
 $ticketTag = "";
 $ticketEvent = "";
 $ticketType = "";
+$current = time();
 
 if ($_POST['devicetoken'] == "" ||
 	$_POST['eventID'] == "" ||
@@ -23,7 +24,6 @@ if ($_POST['devicetoken'] == "" ||
 		$ticketType = 1;
 		$ticketNotes = 'Ticket issued by device';
 				
-		$current = time();
 		$database = new Medoo([
 	    // required
 	    'database_type' => 'mysql',
