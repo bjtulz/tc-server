@@ -65,6 +65,6 @@ if ($_POST['devicetoken'] == "" || $_POST['eventID'] == "") {
 		}
 		
 	
-	$output = $state.",".$deviceName.",".$eventName;
+	$output = $type.",".$state.",".$deviceName.",".$eventName;
     echo $output;
 ?>

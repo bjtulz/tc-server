@@ -71,11 +71,6 @@ if ($_POST['devicetoken'] == "" ||
 		}
 		
 	}
-	$output = array(
-	             'type' => $type,
-	             'state' => $state,
-                 'ticketRef' => $ticketRef,
-				 'ticketTag' => $ticketTag,
-				 'ticketEvent' => $ticketEvent);
-    echo json_encode($output);
+	$output = $type.",".$state.",".$ticketRef.",".$ticketTag.",".$ticketEvent;
+    echo $output;
 ?>
