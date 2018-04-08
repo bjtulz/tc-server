@@ -53,7 +53,7 @@ if ($_POST['devicetoken'] == "" ||
 			if (count($eventData) == 0){
 				$state = 303; // event not exist
 			} else {
-			if ($eventData[0]["tc_event_endtime"]; <= $current) {
+			if ($eventData[0]["tc_event_endtime"] <= $current) {
 				$state = 304; // event expired
 			} else {
 				$state = 200;
